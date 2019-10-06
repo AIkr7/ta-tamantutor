@@ -10,13 +10,19 @@ import {
   ListItemIcon,
   ListItemText,
   Text,
+  Divider,
 } from '../Material';
-import { Home as HomeIcon, Info as InfoIcon } from '../Icon';
+import {
+  Home as HomeIcon,
+  Info as InfoIcon,
+  Search as SearchIcon,
+  SupervisedUserCircle as SupervisedUserCircleIcon,
+} from '../Icon';
 import Link from '../Link';
 
 import TamanSiswaLogo from '../../static/tamansiswa-logo.svg';
 
-const K_LIST_ITEMS = [
+const K_LIST_TAMAN_SISWA = [
   {
     title: 'Home',
     uri: '/',
@@ -28,6 +34,44 @@ const K_LIST_ITEMS = [
     Icon: InfoIcon,
   },
 ];
+
+const K_LIST_TAMAN_TUTOR = [
+  {
+    title: 'Minta Tutor',
+    uri: '/request',
+    Icon: SearchIcon,
+  },
+  {
+    title: 'Jadi Tutor',
+    uri: '/#JoinTutor',
+    Icon: SupervisedUserCircleIcon,
+  },
+];
+
+function renderDrawerList(items, router) {
+  return (
+    <List>
+      {items.map((item) => (
+        <ListItem
+          component={Link}
+          href={item.uri}
+          key={item.title}
+          selected={item.uri === router.asPath}
+        >
+          <ListItemIcon>{item.Icon && <item.Icon />}</ListItemIcon>
+          <ListItemText
+            disableTypography
+            primary={
+              <Text style={{ color: '#333' }} type="body2">
+                {item.title}
+              </Text>
+            }
+          />
+        </ListItem>
+      ))}
+    </List>
+  );
+}
 
 function Drawer({ onToggle, open, router }) {
   const classes = useStyles();
@@ -65,26 +109,12 @@ function Drawer({ onToggle, open, router }) {
         <div className={classes.logo}>
           <TamanSiswaLogo width={132} />
         </div>
-        <List>
-          {K_LIST_ITEMS.map((item) => (
-            <ListItem
-              component={Link}
-              href={item.uri}
-              key={item.title}
-              selected={item.uri === router.pathname}
-            >
-              <ListItemIcon>{item.Icon && <item.Icon />}</ListItemIcon>
-              <ListItemText
-                disableTypography
-                primary={
-                  <Text style={{ color: '#333' }} type="body2">
-                    {item.title}
-                  </Text>
-                }
-              />
-            </ListItem>
-          ))}
-        </List>
+        {renderDrawerList(K_LIST_TAMAN_SISWA, router)}
+        <Divider />
+        <div className={classes.logo}>
+          <img src="/static/tamantutor-logo_alt.webp" width={132} />
+        </div>
+        {renderDrawerList(K_LIST_TAMAN_TUTOR, router)}
       </div>
       <div className={classes.companyName}>
         <Text style={{ fontWeight: 700 }}>Taman Siswa Project</Text>

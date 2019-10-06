@@ -108,7 +108,7 @@ export default function Home() {
           </div>
         </div>
       </Container>
-      <Container className={classes.reasonTutorContainer}>
+      <Container id="JoinTutor" className={classes.reasonTutorContainer}>
         <div className={classes.reasonTutor}>
           <div className={classes.listReason}>
             <Text variant="h4">​​Why you should be our Tutor</Text>
@@ -232,6 +232,7 @@ const useStyles = makeStyles(({ palette, breakpoints }) => ({
   reasonTuteeContainer: {
     [breakpoints.down('sm')]: {
       padding: 0,
+      overflow: 'hidden',
     },
   },
 
